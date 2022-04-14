@@ -3,15 +3,9 @@ import { JSDOM } from 'jsdom';
 
 const articleBaseUrl = process.env.FD_ARTICLES_BASE_URL
 
-// Make list of categories
-// Get a category
-// Make list of folders
-// Get a folder
-// Make array of article Ids
-// Get links addresses for P
-// Put P into a single article
 
-async function printStructureFull(){
+//AUXILIARY FUNCTIONS
+async function AUX_printStructureFull(){
     const allCategories = await api.getCategories()
     for (let i = 0; i<allCategories.length; i++){
         console.log(`${allCategories[i].id}: ${allCategories[i].name}`)
@@ -27,7 +21,7 @@ async function printStructureFull(){
         }
     }
 }
-async function printStructureShort(){
+async function AUX_printStructureShort(){
     const allCategories = await api.getCategories()
     for (let i = 0; i<allCategories.length; i++){
         console.log(`${allCategories[i].id}: ${allCategories[i].name}`)
@@ -38,7 +32,7 @@ async function printStructureShort(){
         }
     }
 }
-async function printFolder(folderId){
+async function AUX_printFolder(folderId){
     const folder = await api.getSingleFolder(folderId)
     console.log(`${folder.id}: ${folder.name}`)
 
@@ -47,9 +41,19 @@ async function printFolder(folderId){
         console.log(`    ${allArticlesInFolder[y].id}: ${allArticlesInFolder[y].title}`)
     }
 }
-// printStructureShort()
-// printStructureFull()
-// printFolder(29000057657)
+async function AUX_publishFolder (folderId){
+    const articlesInFolder = await api.getArticles(folderId)
+    
+    for (let i = 0; i < articlesInFolder.length; i++){
+        await api.publishArticle(articlesInFolder[i].id)
+        console.log(`    Published article # ${articlesInFolder[i].id}`)
+    }
+    console.log(`Published entire folder ${folderId}`)
+}
+// AUX_printStructureShort()
+// AUX_printStructureFull()
+// AUX_printFolder(29000057657)
+// AUX_publishFolder(29000057661)
 
 async function putMicronav (prevArticle, currArticle, nextArticle){
     const dom = new JSDOM(currArticle.description)
@@ -143,19 +147,5 @@ async function putNavInCategory (categoryId){
 
 }
 
-async function publishFolder (folderId){
-    const articlesInFolder = await api.getArticles(folderId)
-    
-    for (let i = 0; i < articlesInFolder.length; i++){
-        await api.publishArticle(articlesInFolder[i].id)
-        console.log(`    Published article # ${articlesInFolder[i].id}`)
-    }
-    console.log(`Published entire folder ${folderId}`)
-}
-
-
 // putNavInFolder(29000057661)
-
-// publishFolder(29000057661)
-
 // putNavInCategory(29000035390)
