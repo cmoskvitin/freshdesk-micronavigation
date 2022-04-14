@@ -31,7 +31,10 @@ export async function getFolders(categoryId) {
   );
   return response.json();
 }
-
+// getArticles actually loads the folder contents (article information)
+// WITH individual articles' contents from a /folders endpoint.
+// So the getSingleArticle using an /articles endpoint isn't that useful,
+// Because if you need just a list of article IDs, you still have to get their full contents.
 export async function getArticles(folderId) {
   const response = await fetch(
     BASE.url + "solutions/folders/" + folderId.toString() + "/articles",
@@ -91,7 +94,3 @@ export async function publishArticle(articleId) {
   );
   return response.json();
 }
-
-// export function testt (){
-//   console.log(BASEDATA)
-// }
