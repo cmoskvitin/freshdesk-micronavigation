@@ -1,9 +1,8 @@
 import fetch from "node-fetch";
 
 const BASE = {
-  auth: "Basic " + process.env.FD_API_KEY,
-  url: process.env.FD_API_BASE_URL,
-  internalUrl: process.env.FD_INTERNAL_KNOWLEDGE_BASE_URL,
+  auth: "Basic " + (Buffer.from(process.env.FD_API_KEY)).toString('base64'),
+  url: process.env.FD_API_BASE_URL
 };
 
 const HEADERS = {

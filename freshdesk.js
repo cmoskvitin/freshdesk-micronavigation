@@ -126,7 +126,6 @@ async function putMicronav (prevArticle, currArticle, nextArticle){
     await api.updateArticleDescription(currArticle.id, newBody)
     console.log(`    Processed article # ${currArticle.id}`)
 }
-
 async function putNavInFolder (folderId){
     const articlesInFolder = await api.getArticles(folderId)
 
@@ -135,7 +134,6 @@ async function putNavInFolder (folderId){
     }
     console.log(`Processed folder ${folderId}`)
 }
-
 async function putNavInCategory (categoryId){
     const foldersInCategory = await api.getFolders(categoryId)
     console.log(`PROCESSING CATEGORY # ${categoryId}`)
@@ -146,6 +144,5 @@ async function putNavInCategory (categoryId){
     console.log(`PROCESSED CATEGORY # ${categoryId}`)
 
 }
-
 // putNavInFolder(29000057661)
 // putNavInCategory(29000035390)
